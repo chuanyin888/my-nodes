@@ -5,22 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MatrixEdge | 分布式边缘计算集群管理系统</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0b0e14; color: #cfd8dc; font-family: 'Segoe UI', Roboto, sans-serif; }
-        .hero-section { padding: 80px 0; background: linear-gradient(135deg, #1a237e 0%, #0b0e14 100%); border-bottom: 1px solid #303f9f; }
-        .tech-card { background: #1c222d; border: 1px solid #37474f; border-radius: 10px; padding: 20px; transition: 0.3s; }
-        .tech-card:hover { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0,229,255,0.2); }
-        .accent-color { color: #00e5ff; }
-        .status-dot { height: 10px; width: 10px; background-color: #00e676; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        :root { --primary-bg: #0f172a; --card-bg: #1e293b; --accent: #38bdf8; --text: #cbd5e1; }
+        body { background-color: var(--primary-bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+        
+        /* 头部设计 */
+        .hero { background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(56,189,248,0.05) 100%); padding: 100px 0 60px; border-bottom: 1px solid #334155; }
+        .hero h1 { color: #f8fafc; font-weight: 800; letter-spacing: -1px; }
+        
+        /* 终端模拟窗 */
+        .terminal-window { background: #000; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+        .terminal-header { background: #334155; padding: 8px 12px; display: flex; gap: 6px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .terminal-body { padding: 20px; color: #4ade80; }
+        .cmd { color: #f8fafc; }
+        .comment { color: #94a3b8; }
+
+        /* 状态卡片 */
+        .stat-card { background: var(--card-bg); border: 1px solid #334155; border-radius: 12px; padding: 20px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #f8fafc; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+        
+        .badge-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="hero-section text-center">
+
+    <nav class="navbar navbar-dark border-bottom border-secondary" style="background-color: #0f172a;">
         <div class="container">
-            <h1 class="display-4 fw-bold text-white mb-3">MatrixEdge <span class="accent-color">Cluster</span></h1>
-            <p class="lead mb-4">下一代高性能分布式边缘计算节点管理平台</p>
-            <div class="badge bg-dark border border-info p-2">
-                <span class="status-dot"></span> 全球节点实时同步中
+            <span class="navbar-brand fw-bold"><i class="fas fa-network-wired me-2 text-info"></i>MatrixEdge<span class="fs-6 text-muted ms-2">v2.4.1 (Stable)</span></span>
+            <span class="badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3"><span class="badge-pulse">●</span> System Operational</span>
+        </div>
+    </nav>
+
+    <div class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 mb-4">企业级分布式边缘节点编排</h1>
+            <p class="lead mb-5 mx-auto" style="max-width: 600px;">
+                专为 RK3399/x86 异构集群设计的自动化部署方案。支持多出口宽带聚合、智能 NAT 穿透与毫秒级延迟监控。
+            </p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="terminal-window text-start">
+                        <div class="terminal-header">
+                            <div class="dot" style="background:#ef4444"></div>
+                            <div class="dot" style="background:#eab308"></div>
+                            <div class="dot" style="background:#22c55e"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="mb-2"><span class="cmd">root@matrix-node:~#</span> ./deploy_node.sh --target=rk3399 --instances=500</div>
+                            <div class="mb-2">[INFO] Initializing Docker containers...</div>
+                            <div class="mb-2">[INFO] Detecting Network Interfaces (WAN1...WAN500) <span class="text-warning">Done</span></div>
+                            <div class="mb-2">[INFO] Optimization: Residential IP Latency < 30ms</div>
+                            <div><span class="cmd">root@matrix-node:~#</span> _<span class="badge-pulse">█</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -28,28 +71,49 @@
     <div class="container my-5">
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="tech-card h-100">
-                    <h4 class="accent-color">多架构支持</h4>
-                    <p>原生适配 ARM64 (RK3399, S905L) 与 x86_64 集群，实现异构计算资源统一调度。</p>
+                <div class="stat-card">
+                    <div class="stat-label mb-2">Active Nodes</div>
+                    <div class="stat-value text-info">528</div>
+                    <div class="text-muted small mt-2"><i class="fas fa-arrow-up text-success"></i> +12 今日新增节点</div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="tech-card h-100">
-                    <h4 class="accent-color">网络矩阵优化</h4>
-                    <p>针对住宅宽带 (Residential IP) 深度优化 NAT 穿透技术，确保 99.9% 节点在线率。</p>
+                <div class="stat-card">
+                    <div class="stat-label mb-2">Network Uptime</div>
+                    <div class="stat-value text-success">99.98%</div>
+                    <div class="text-muted small mt-2">基于 Docker 容器自动守护</div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="tech-card h-100">
-                    <h4 class="accent-color">容器化部署</h4>
-                    <p>基于 Docker 引擎的一键式部署方案，支持数千个节点并发管理与流量负载均衡。</p>
+                <div class="stat-card">
+                    <div class="stat-label mb-2">Total Bandwidth</div>
+                    <div class="stat-value text-warning">10.5 Gbps</div>
+                    <div class="text-muted small mt-2">负载均衡策略：Round Robin</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="text-center py-4 border-top border-secondary">
-        <p class="small text-secondary">&copy; 2026 MatrixEdge Technology. 仅供内部集群管理使用。</p>
+    <div class="container py-5 border-top border-secondary">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h5 class="text-white">🚀 容器化集群</h5>
+                <p class="text-muted small">完美兼容 Ubuntu (x86) 与 Armbian (S905L/RK3399)，一键 Docker Compose 拉起。</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-white">🛡️ 企业级安全</h5>
+                <p class="text-muted small">节点通信采用 TLS 1.3 加密，符合 GDPR 合规要求，保护宽带出口隐私。</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-white">⚡ 智能多拨优化</h5>
+                <p class="text-muted small">内置看门狗脚本 (Watchdog)，自动检测拨号状态，断线 3 秒内自动重连。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5">
+        <p class="small text-secondary">&copy; 2024-2026 MatrixEdge Infrastructure. Internal Tool for Authorized Personnel Only.</p>
     </footer>
+
 </body>
 </html>
