@@ -7,43 +7,73 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --bg-color: #0f172a; --card-bg: #1e293b; --primary: #6366f1; --success: #22c55e; --text-main: #f8fafc; --text-sub: #94a3b8; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; }
+        /* 定义高对比度颜色变量 */
+        :root { 
+            --bg-color: #0b1120; /* 更深的背景色 */
+            --card-bg: #1a2332;  /* 卡片背景 */
+            --primary: #6366f1;  /* 主色调紫 */
+            --success: #22c55e;  /* 成功绿 */
+            --text-main: #ffffff; /* 强制纯白主文字 */
+            --text-sub: #e2e8f0;  /* 高亮浅灰辅助文字 */
+        }
         
-        /* 极简主义科技风 */
-        .navbar { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid #334155; backdrop-filter: blur(10px); }
-        .hero-section { padding: 100px 0 80px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%); }
-        
-        .hero-title { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
-        .hero-subtitle { color: var(--text-sub); font-size: 1.2rem; max-width: 650px; margin: 0 auto 50px; }
-        
-        /* 终端窗口 - 强调诊断与数据 */
-        .console-wrapper { background: #020617; border: 1px solid #334155; border-radius: 8px; box-shadow: 0 0 40px rgba(99, 102, 241, 0.1); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; max-width: 750px; margin: 0 auto; text-align: left; overflow: hidden; }
-        .console-header { background: #1e293b; padding: 8px 16px; display: flex; align-items: center; border-bottom: 1px solid #334155; }
-        .console-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: #475569; }
-        .console-body { padding: 24px; color: #cbd5e1; }
-        
-        /* 状态颜色 */
-        .status-ok { color: #22c55e; }
-        .status-info { color: #60a5fa; }
-        .status-warn { color: #fbbf24; }
-        .cmd-line { color: #94a3b8; margin-bottom: 10px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        /* 全局样式重置 */
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main) !important; /* 强制覆盖所有默认颜色 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+        }
 
-        /* 特性卡片 */
-        .feature-card { background: var(--card-bg); padding: 30px; border-radius: 12px; height: 100%; border: 1px solid transparent; transition: all 0.3s ease; }
-        .feature-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .icon-box { font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; }
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-main) !important; /* 确保标题纯白 */
+        }
+
+        /* 自定义辅助文字颜色类，替代 Bootstrap 的 text-muted */
+        .text-sub-light {
+            color: var(--text-sub) !important;
+        }
         
-        .badge-pro { background: rgba(99, 102, 241, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(99, 102, 241, 0.2); }
+        /* 导航栏 */
+        .navbar { background: rgba(11, 17, 32, 0.95); border-bottom: 1px solid #334155; backdrop-filter: blur(10px); }
+        .badge-pro { background: rgba(99, 102, 241, 0.2); color: #a5a6f6; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(99, 102, 241, 0.4); }
+
+        /* 英雄区域 */
+        .hero-section { padding: 100px 0 80px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, transparent 100%); }
+        .hero-title { font-size: 3.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-subtitle { color: var(--text-sub); font-size: 1.25rem; max-width: 680px; margin: 0 auto 50px; font-weight: 400; }
+        
+        /* 终端窗口 - 高清版 */
+        .console-wrapper { background: #000000; border: 1px solid #475569; border-radius: 10px; box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; max-width: 780px; margin: 0 auto; text-align: left; overflow: hidden; }
+        .console-header { background: #1e293b; padding: 10px 18px; display: flex; align-items: center; border-bottom: 1px solid #334155; }
+        .console-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .console-body { padding: 28px; color: #e2e8f0; line-height: 1.8; }
+        
+        /* 终端颜色 */
+        .status-ok { color: #4ade80; font-weight: 600; }
+        .status-info { color: #60a5fa; font-weight: 600; }
+        .status-warn { color: #facc15; font-weight: 600; }
+        .cmd-line { color: #fff; margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 15px; font-weight: 600; }
+        .highlight-text { color: #fff; font-weight: 700; }
+
+        /* 特性卡片 - 高对比 */
+        .feature-card { background: var(--card-bg); padding: 35px; border-radius: 16px; height: 100%; border: 1px solid #334155; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2); }
+        .icon-box { font-size: 2rem; color: var(--primary); margin-bottom: 25px; }
+        .feature-card p { color: var(--text-sub) !important; font-size: 0.95rem; }
+
+        /* 页脚 */
+        .footer { border-top: 1px solid #334155; background: #0b1120; }
+        .footer-text { color: #94a3b8 !important; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="#"><i class="fas fa-satellite-dish me-2 text-primary"></i>CloudPulse <span class="text-muted fw-normal fs-6">Analytics</span></a>
+            <a class="navbar-brand fw-bold text-white" href="#"><i class="fas fa-satellite-dish me-3 text-primary"></i>CloudPulse <span class="text-sub-light fw-normal fs-6">Analytics</span></a>
             <div class="ms-auto">
-                <span class="badge-pro">ENTERPRISE EDITION</span>
+                <span class="badge-pro">ENTERPRISE CORE</span>
             </div>
         </div>
     </nav>
@@ -52,7 +82,7 @@
         <div class="container">
             <h1 class="hero-title">全球分布式网络质量监测系统</h1>
             <p class="hero-subtitle">
-                基于 <span class="text-white">RK3399/x86 边缘计算节点</span> 的实时网络诊断平台。
+                基于 <span class="highlight-text text-primary">RK3399/x86 边缘计算节点</span> 的实时网络诊断平台。
                 <br>为企业提供真实的最后一公里 (Last-Mile) 连通性分析与数据验证服务。
             </p>
 
@@ -61,21 +91,21 @@
                     <div class="console-dot" style="background:#ef4444"></div>
                     <div class="console-dot" style="background:#fbbf24"></div>
                     <div class="console-dot" style="background:#22c55e"></div>
-                    <span class="ms-auto text-muted small">sysadmin@cloudpulse-node01:~</span>
+                    <span class="ms-auto text-sub-light small" style="opacity: 0.8;">sysadmin@cloudpulse-node01:~</span>
                 </div>
                 <div class="console-body">
-                    <div class="cmd-line">root@node:~# ./start_diagnostic_agent.sh --mode=passive</div>
+                    <div class="cmd-line">root@node:~# ./start_diagnostic_agent.sh --mode=passive --secure</div>
                     
-                    <div class="mb-2"><span class="text-muted">[INIT]</span> Loading Network Intelligence Modules... <span class="status-ok">DONE</span></div>
-                    <div class="mb-2"><span class="text-muted">[INFO]</span> Agent ID: <span class="text-white">CP-Node-8849</span> (Region: CN-Mobile)</div>
-                    <div class="mb-2"><span class="text-muted">[CHECK]</span> Validating Environment Compliance... <span class="status-ok">PASSED</span></div>
+                    <div class="mb-2"><span class="text-sub-light">[INIT]</span> Loading Network Intelligence Modules... <span class="status-ok">DONE</span></div>
+                    <div class="mb-2"><span class="text-sub-light">[INFO]</span> Agent ID: <span class="highlight-text">CP-Node-8849</span> (Region: CN-Mobile-Residential)</div>
+                    <div class="mb-2"><span class="text-sub-light">[CHECK]</span> Validating Environment Compliance & Security... <span class="status-ok">PASSED</span></div>
                     
-                    <div class="mb-2 mt-3"><span class="status-info">[TASK]</span> Received Request: Web Accessibility Check (Target: e-commerce)</div>
-                    <div class="mb-2"><span class="status-info">[TASK]</span> Executing DNS Resolution Latency Test...</div>
-                    <div class="mb-2"><span class="status-ok">[RESULT]</span> Response Time: 12ms | Packet Loss: 0.0%</div>
+                    <div class="mb-2 mt-4"><span class="status-info">[TASK]</span> Received Request: Web Accessibility Check (Target: e-commerce-api)</div>
+                    <div class="mb-2"><span class="status-info">[TASK]</span> Executing DNS Resolution Latency Test (Passive Mode)...</div>
+                    <div class="mb-2"><span class="status-ok">[RESULT]</span> Response Time: 12ms | Packet Loss: 0.0% | Jitter: 1.2ms</div>
                     
-                    <div class="mb-2 mt-3"><span class="status-warn">[SYNC]</span> Uploading Diagnostic Data to Central Cloud...</div>
-                    <div><span class="status-ok">[READY]</span> <span class="text-white">System Standby. Waiting for next verify task.</span><span class="status-ok">_</span></div>
+                    <div class="mb-2 mt-4"><span class="status-warn">[SYNC]</span> Encrypting and Uploading Diagnostic Data to Central Cloud...</div>
+                    <div><span class="status-ok">[READY]</span> <span class="highlight-text">System Standby. Waiting for next verify task.</span><span class="status-ok_">_</span></div>
                 </div>
             </div>
         </div>
@@ -86,30 +116,30 @@
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="icon-box"><i class="fas fa-chart-network"></i></div>
-                    <h5 class="text-white mb-3">真实网络环境映射</h5>
-                    <p class="text-muted small">利用分布式移动宽带节点，真实模拟用户访问环境，帮助企业检测不同地区、不同运营商下的业务可用性。</p>
+                    <h5 class="fw-bold mb-3">真实网络环境映射</h5>
+                    <p>利用分布式移动宽带 (Mobile Broadband) 节点，真实模拟用户访问环境，帮助企业检测不同地区、不同运营商下的业务可用性与延迟情况。</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="icon-box"><i class="fas fa-shield-check"></i></div>
-                    <h5 class="text-white mb-3">非侵入式数据验证</h5>
-                    <p class="text-muted small">仅运行被动式网络请求验证。严格限制带宽占用，不涉及 P2P 内容分发或大流量上传，确保家庭网络零负担。</p>
+                    <h5 class="fw-bold mb-3">非侵入式数据验证</h5>
+                    <p>仅运行被动式网络请求验证（如 Ping, DNS 查询）。严格限制带宽占用，不涉及 P2P 内容分发或大流量上传业务，确保家庭网络零负担。</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="icon-box"><i class="fas fa-microchip"></i></div>
-                    <h5 class="text-white mb-3">智能异构集群</h5>
-                    <p class="text-muted small">兼容 ARM (RK3399/S905L) 与 x86 架构。通过 Docker 容器实现轻量级部署，自动调度闲置算力进行数据清洗。</p>
+                    <h5 class="fw-bold mb-3">智能异构集群支持</h5>
+                    <p>完美兼容 ARM (RK3399/S905L) 与 x86 架构。通过 Docker 容器实现轻量级部署，自动调度闲置算力进行合规的数据清洗任务。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="text-center py-4 mt-5 border-top border-secondary">
+    <footer class="footer text-center py-4 mt-5">
         <div class="container">
-            <p class="small text-muted">&copy; 2026 CloudPulse Analytics. Authorized infrastructure for data verification.</p>
+            <p class="footer-text mb-0">&copy; 2026 CloudPulse Analytics. Authorized infrastructure for data verification only.</p>
         </div>
     </footer>
 
