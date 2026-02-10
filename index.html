@@ -1,118 +1,116 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MatrixEdge | 分布式边缘计算集群管理系统</title>
+    <title>CloudPulse | Distributed Network Intelligence</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary-bg: #0f172a; --card-bg: #1e293b; --accent: #38bdf8; --text: #cbd5e1; }
-        body { background-color: var(--primary-bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+        :root { --bg-color: #0f172a; --card-bg: #1e293b; --primary: #6366f1; --success: #22c55e; --text-main: #f8fafc; --text-sub: #94a3b8; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; }
         
-        /* 头部设计 */
-        .hero { background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(56,189,248,0.05) 100%); padding: 100px 0 60px; border-bottom: 1px solid #334155; }
-        .hero h1 { color: #f8fafc; font-weight: 800; letter-spacing: -1px; }
+        /* 极简主义科技风 */
+        .navbar { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid #334155; backdrop-filter: blur(10px); }
+        .hero-section { padding: 100px 0 80px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%); }
         
-        /* 终端模拟窗 */
-        .terminal-window { background: #000; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
-        .terminal-header { background: #334155; padding: 8px 12px; display: flex; gap: 6px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .terminal-body { padding: 20px; color: #4ade80; }
-        .cmd { color: #f8fafc; }
-        .comment { color: #94a3b8; }
+        .hero-title { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
+        .hero-subtitle { color: var(--text-sub); font-size: 1.2rem; max-width: 650px; margin: 0 auto 50px; }
+        
+        /* 终端窗口 - 强调诊断与数据 */
+        .console-wrapper { background: #020617; border: 1px solid #334155; border-radius: 8px; box-shadow: 0 0 40px rgba(99, 102, 241, 0.1); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; max-width: 750px; margin: 0 auto; text-align: left; overflow: hidden; }
+        .console-header { background: #1e293b; padding: 8px 16px; display: flex; align-items: center; border-bottom: 1px solid #334155; }
+        .console-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: #475569; }
+        .console-body { padding: 24px; color: #cbd5e1; }
+        
+        /* 状态颜色 */
+        .status-ok { color: #22c55e; }
+        .status-info { color: #60a5fa; }
+        .status-warn { color: #fbbf24; }
+        .cmd-line { color: #94a3b8; margin-bottom: 10px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
 
-        /* 状态卡片 */
-        .stat-card { background: var(--card-bg); border: 1px solid #334155; border-radius: 12px; padding: 20px; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: #f8fafc; }
-        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+        /* 特性卡片 */
+        .feature-card { background: var(--card-bg); padding: 30px; border-radius: 12px; height: 100%; border: 1px solid transparent; transition: all 0.3s ease; }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .icon-box { font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; }
         
-        .badge-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .badge-pro { background: rgba(99, 102, 241, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(99, 102, 241, 0.2); }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark border-bottom border-secondary" style="background-color: #0f172a;">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <span class="navbar-brand fw-bold"><i class="fas fa-network-wired me-2 text-info"></i>MatrixEdge<span class="fs-6 text-muted ms-2">v2.4.1 (Stable)</span></span>
-            <span class="badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3"><span class="badge-pulse">●</span> System Operational</span>
+            <a class="navbar-brand fw-bold text-white" href="#"><i class="fas fa-satellite-dish me-2 text-primary"></i>CloudPulse <span class="text-muted fw-normal fs-6">Analytics</span></a>
+            <div class="ms-auto">
+                <span class="badge-pro">ENTERPRISE EDITION</span>
+            </div>
         </div>
     </nav>
 
-    <div class="hero text-center">
+    <section class="hero-section text-center px-3">
         <div class="container">
-            <h1 class="display-4 mb-4">企业级分布式边缘节点编排</h1>
-            <p class="lead mb-5 mx-auto" style="max-width: 600px;">
-                专为 RK3399/x86 异构集群设计的自动化部署方案。支持多出口宽带聚合、智能 NAT 穿透与毫秒级延迟监控。
+            <h1 class="hero-title">全球分布式网络质量监测系统</h1>
+            <p class="hero-subtitle">
+                基于 <span class="text-white">RK3399/x86 边缘计算节点</span> 的实时网络诊断平台。
+                <br>为企业提供真实的最后一公里 (Last-Mile) 连通性分析与数据验证服务。
             </p>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="terminal-window text-start">
-                        <div class="terminal-header">
-                            <div class="dot" style="background:#ef4444"></div>
-                            <div class="dot" style="background:#eab308"></div>
-                            <div class="dot" style="background:#22c55e"></div>
-                        </div>
-                        <div class="terminal-body">
-                            <div class="mb-2"><span class="cmd">root@matrix-node:~#</span> ./deploy_node.sh --target=rk3399 --instances=500</div>
-                            <div class="mb-2">[INFO] Initializing Docker containers...</div>
-                            <div class="mb-2">[INFO] Detecting Network Interfaces (WAN1...WAN500) <span class="text-warning">Done</span></div>
-                            <div class="mb-2">[INFO] Optimization: Residential IP Latency < 30ms</div>
-                            <div><span class="cmd">root@matrix-node:~#</span> _<span class="badge-pulse">█</span></div>
-                        </div>
-                    </div>
+
+            <div class="console-wrapper">
+                <div class="console-header">
+                    <div class="console-dot" style="background:#ef4444"></div>
+                    <div class="console-dot" style="background:#fbbf24"></div>
+                    <div class="console-dot" style="background:#22c55e"></div>
+                    <span class="ms-auto text-muted small">sysadmin@cloudpulse-node01:~</span>
+                </div>
+                <div class="console-body">
+                    <div class="cmd-line">root@node:~# ./start_diagnostic_agent.sh --mode=passive</div>
+                    
+                    <div class="mb-2"><span class="text-muted">[INIT]</span> Loading Network Intelligence Modules... <span class="status-ok">DONE</span></div>
+                    <div class="mb-2"><span class="text-muted">[INFO]</span> Agent ID: <span class="text-white">CP-Node-8849</span> (Region: CN-Mobile)</div>
+                    <div class="mb-2"><span class="text-muted">[CHECK]</span> Validating Environment Compliance... <span class="status-ok">PASSED</span></div>
+                    
+                    <div class="mb-2 mt-3"><span class="status-info">[TASK]</span> Received Request: Web Accessibility Check (Target: e-commerce)</div>
+                    <div class="mb-2"><span class="status-info">[TASK]</span> Executing DNS Resolution Latency Test...</div>
+                    <div class="mb-2"><span class="status-ok">[RESULT]</span> Response Time: 12ms | Packet Loss: 0.0%</div>
+                    
+                    <div class="mb-2 mt-3"><span class="status-warn">[SYNC]</span> Uploading Diagnostic Data to Central Cloud...</div>
+                    <div><span class="status-ok">[READY]</span> <span class="text-white">System Standby. Waiting for next verify task.</span><span class="status-ok">_</span></div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container my-5">
+    <section class="container py-5">
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="stat-card">
-                    <div class="stat-label mb-2">Active Nodes</div>
-                    <div class="stat-value text-info">528</div>
-                    <div class="text-muted small mt-2"><i class="fas fa-arrow-up text-success"></i> +12 今日新增节点</div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-chart-network"></i></div>
+                    <h5 class="text-white mb-3">真实网络环境映射</h5>
+                    <p class="text-muted small">利用分布式移动宽带节点，真实模拟用户访问环境，帮助企业检测不同地区、不同运营商下的业务可用性。</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="stat-card">
-                    <div class="stat-label mb-2">Network Uptime</div>
-                    <div class="stat-value text-success">99.98%</div>
-                    <div class="text-muted small mt-2">基于 Docker 容器自动守护</div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-shield-check"></i></div>
+                    <h5 class="text-white mb-3">非侵入式数据验证</h5>
+                    <p class="text-muted small">仅运行被动式网络请求验证。严格限制带宽占用，不涉及 P2P 内容分发或大流量上传，确保家庭网络零负担。</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="stat-card">
-                    <div class="stat-label mb-2">Total Bandwidth</div>
-                    <div class="stat-value text-warning">10.5 Gbps</div>
-                    <div class="text-muted small mt-2">负载均衡策略：Round Robin</div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-microchip"></i></div>
+                    <h5 class="text-white mb-3">智能异构集群</h5>
+                    <p class="text-muted small">兼容 ARM (RK3399/S905L) 与 x86 架构。通过 Docker 容器实现轻量级部署，自动调度闲置算力进行数据清洗。</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container py-5 border-top border-secondary">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <h5 class="text-white">🚀 容器化集群</h5>
-                <p class="text-muted small">完美兼容 Ubuntu (x86) 与 Armbian (S905L/RK3399)，一键 Docker Compose 拉起。</p>
-            </div>
-            <div class="col-md-4">
-                <h5 class="text-white">🛡️ 企业级安全</h5>
-                <p class="text-muted small">节点通信采用 TLS 1.3 加密，符合 GDPR 合规要求，保护宽带出口隐私。</p>
-            </div>
-            <div class="col-md-4">
-                <h5 class="text-white">⚡ 智能多拨优化</h5>
-                <p class="text-muted small">内置看门狗脚本 (Watchdog)，自动检测拨号状态，断线 3 秒内自动重连。</p>
-            </div>
+    <footer class="text-center py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <p class="small text-muted">&copy; 2026 CloudPulse Analytics. Authorized infrastructure for data verification.</p>
         </div>
-    </div>
-
-    <footer class="text-center py-4 mt-5">
-        <p class="small text-secondary">&copy; 2024-2026 MatrixEdge Infrastructure. Internal Tool for Authorized Personnel Only.</p>
     </footer>
 
 </body>
