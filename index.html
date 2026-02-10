@@ -1,27 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>Smart Node Manager - Distributed Edge Computing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatrixEdge | 分布式边缘计算集群管理系统</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1 { color: #2c3e50; }
-        .tech-stack { background: #f4f4f4; padding: 15px; border-left: 5px solid #3498db; }
+        body { background-color: #0b0e14; color: #cfd8dc; font-family: 'Segoe UI', Roboto, sans-serif; }
+        .hero-section { padding: 80px 0; background: linear-gradient(135deg, #1a237e 0%, #0b0e14 100%); border-bottom: 1px solid #303f9f; }
+        .tech-card { background: #1c222d; border: 1px solid #37474f; border-radius: 10px; padding: 20px; transition: 0.3s; }
+        .tech-card:hover { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0,229,255,0.2); }
+        .accent-color { color: #00e5ff; }
+        .status-dot { height: 10px; width: 10px; background-color: #00e676; border-radius: 50%; display: inline-block; margin-right: 5px; }
     </style>
 </head>
 <body>
-    <h1>Smart Node Manager</h1>
-    <p>这是一个专门为 ARM (RK3399, S905L) 和 x86 架构设计的分布式边缘节点管理工具。</p>
-    
-    <div class="tech-stack">
-        <strong>技术栈:</strong>
-        <ul>
-            <li>支持 Docker 容器化部署</li>
-            <li>优化移动宽带 NAT 环境下的网络连接</li>
-            <li>自动化监测多拨宽带稳定性</li>
-        </ul>
+    <div class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold text-white mb-3">MatrixEdge <span class="accent-color">Cluster</span></h1>
+            <p class="lead mb-4">下一代高性能分布式边缘计算节点管理平台</p>
+            <div class="badge bg-dark border border-info p-2">
+                <span class="status-dot"></span> 全球节点实时同步中
+            </div>
+        </div>
     </div>
-    
-    <h3>项目目标</h3>
-    <p>利用闲置的住宅宽带带宽，为全球网络提供高质量的边缘节点支持。</p>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="tech-card h-100">
+                    <h4 class="accent-color">多架构支持</h4>
+                    <p>原生适配 ARM64 (RK3399, S905L) 与 x86_64 集群，实现异构计算资源统一调度。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tech-card h-100">
+                    <h4 class="accent-color">网络矩阵优化</h4>
+                    <p>针对住宅宽带 (Residential IP) 深度优化 NAT 穿透技术，确保 99.9% 节点在线率。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tech-card h-100">
+                    <h4 class="accent-color">容器化部署</h4>
+                    <p>基于 Docker 引擎的一键式部署方案，支持数千个节点并发管理与流量负载均衡。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 border-top border-secondary">
+        <p class="small text-secondary">&copy; 2026 MatrixEdge Technology. 仅供内部集群管理使用。</p>
+    </footer>
 </body>
 </html>
